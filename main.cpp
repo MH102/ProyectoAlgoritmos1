@@ -13,8 +13,8 @@ int main()
         std::string borderCoords = country.attribute("d").as_string();
         borderCoords = borderCoords.substr(0, borderCoords.length() - 1);
         std::string id = country.attribute("id").as_string();
-        std::string countryCode = country.attribute("data-name").as_string();
-        std::string countryName = country.attribute("data-id").as_string();
+        std::string countryCode = country.attribute("data-id").as_string();
+        std::string countryName = country.attribute("data-name").as_string();
         std::string color = style.substr(0, style.find(';'));
         std::string styleRule = style.substr(style.find(';') + 1, -1);
 
@@ -23,6 +23,7 @@ int main()
         std::vector<std::pair<double, double>> coords;
         std::pair<double, double> mainPair(-1, -1);
         bool inPath = false;
+        // n
         for (int i = 0; i < borderCoords.length(); i++)
         {
             if (inPath)
@@ -47,8 +48,10 @@ int main()
                         }
                         else
                         {
-                            coords.push_back(std::make_pair(mainPair.first + coord1, mainPair.second + coord2));
+                            mainPair = std::make_pair((mainPair.first + coord1), (mainPair.second + coord2));
+                            coords.push_back(mainPair);
                         }
+
                         coord = "";
                     }
                     else
@@ -72,5 +75,12 @@ int main()
         //curCountry.print();
     }
     std::cout << countryList.size() << std::endl;
+    for (Country c : countryList)
+    {
+        if (c.getId() == "US" || c.getId() == "CA")
+        {
+            c.print();
+        }
+    }
     return 0;
 }
