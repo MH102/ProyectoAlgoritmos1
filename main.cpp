@@ -1,8 +1,6 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <utility>
+#include "Country.cpp"
 #include "pugixml.cpp"
+std::vector<Country> countryList;
 
 int main()
 {
@@ -69,21 +67,10 @@ int main()
             }
         }
         paths.push_back(coords);
-        std::cout << "Id: " << id << std::endl;
-        std::cout << "Country Code: " << countryCode << std::endl;
-        std::cout << "Country Name: " << countryName << std::endl;
-        std::cout << "Border: " << std::endl;
-        for (int i = 0; i < paths.size(); i++)
-        {
-            std::cout << "[";
-            for (int j = 0; j < paths.at(i).size(); j++)
-            {
-                std::cout << "(" << paths.at(i).at(j).first << "," << paths.at(i).at(j).second << ")";
-            }
-            std::cout << "]" << std::endl;
-        }
-        std::cout << "Style (color): " << color << std::endl;
-        std::cout << "Style (frule): " << styleRule << std::endl;
+        Country curCountry = Country(id, countryName, countryCode, paths, color, styleRule);
+        countryList.push_back(curCountry);
+        //curCountry.print();
     }
+    std::cout << countryList.size() << std::endl;
     return 0;
 }
