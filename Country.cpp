@@ -13,6 +13,9 @@ private:
     std::string styleRule;
 
 public:
+    Country()
+    {
+    }
     Country(std::string pId, std::string pCountryName, std::string pCountryCode, std::vector<std::vector<std::pair<double, double>>> pCountryBorder, std::string pColor, std::string pStyleRule)
     {
         id = pId;
@@ -45,6 +48,33 @@ public:
     std::string getStyleRule()
     {
         return styleRule;
+    }
+    std::vector<std::pair<double, double>> sumarVectores(std::vector<std::vector<std::pair<double, double>>> vec1)
+    {
+        std::vector<std::pair<double, double>> res;
+        for (std::vector<std::pair<double, double>> v : vec1)
+        {
+            for (std::pair<double, double> p : v)
+                res.push_back(p);
+        }
+        return res;
+    }
+    bool seIntersecan(Country pais)
+    {
+        for (std::pair<double, double> p1 : sumarVectores(countryBorder))
+        {
+            for (std::pair<double, double> p2 : sumarVectores(pais.getCountryBorder()))
+            {
+                if (p1.first - p2.first < 1 && p1.first - p2.first > -1)
+                {
+                    if (p1.second - p2.second < 1 && p1.second - p2.second > -1)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
     void print()
     {

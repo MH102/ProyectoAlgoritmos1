@@ -1,6 +1,7 @@
 #include "Country.cpp"
 #include "pugixml.cpp"
-std::vector<Country> countryList;
+using namespace std;
+vector<Country> countryList;
 
 int main()
 {
@@ -9,19 +10,19 @@ int main()
     pugi::xml_node countries = doc.child("svg");
     for (pugi::xml_node country = countries.child("path"); country; country = country.next_sibling("path"))
     {
-        std::string style = country.attribute("style").as_string();
-        std::string borderCoords = country.attribute("d").as_string();
+        string style = country.attribute("style").as_string();
+        string borderCoords = country.attribute("d").as_string();
         borderCoords = borderCoords.substr(0, borderCoords.length() - 1);
-        std::string id = country.attribute("id").as_string();
-        std::string countryCode = country.attribute("data-id").as_string();
-        std::string countryName = country.attribute("data-name").as_string();
-        std::string color = style.substr(0, style.find(';'));
-        std::string styleRule = style.substr(style.find(';') + 1, -1);
+        string id = country.attribute("id").as_string();
+        string countryCode = country.attribute("data-id").as_string();
+        string countryName = country.attribute("data-name").as_string();
+        string color = style.substr(0, style.find(';'));
+        string styleRule = style.substr(style.find(';') + 1, -1);
 
-        std::string coord = "";
-        std::vector<std::vector<std::pair<double, double>>> paths;
-        std::vector<std::pair<double, double>> coords;
-        std::pair<double, double> mainPair(-1, -1);
+        string coord = "";
+        vector<vector<pair<double, double>>> paths;
+        vector<pair<double, double>> coords;
+        pair<double, double> mainPair(-1, -1);
         bool inPath = false;
         // n
         for (int i = 0; i < borderCoords.length(); i++)
@@ -38,17 +39,17 @@ int main()
                 {
                     if (borderCoords.at(i) == ' ')
                     {
-                        double coord1 = std::stod(coord.substr(0, coord.find(',')));
-                        double coord2 = std::stod(coord.substr(coord.find(',') + 1, -1));
-                        //coords.push_back(std::make_pair(coord1, coord2));
+                        double coord1 = stod(coord.substr(0, coord.find(',')));
+                        double coord2 = stod(coord.substr(coord.find(',') + 1, -1));
+                        //coords.push_back(make_pair(coord1, coord2));
                         if (mainPair.first == -1)
                         {
-                            mainPair = std::make_pair(coord1, coord2);
+                            mainPair = make_pair(coord1, coord2);
                             coords.push_back(mainPair);
                         }
                         else
                         {
-                            mainPair = std::make_pair((mainPair.first + coord1), (mainPair.second + coord2));
+                            mainPair = make_pair((mainPair.first + coord1), (mainPair.second + coord2));
                             coords.push_back(mainPair);
                         }
 
@@ -74,13 +75,22 @@ int main()
         countryList.push_back(curCountry);
         //curCountry.print();
     }
-    std::cout << countryList.size() << std::endl;
+    cout << countryList.size() << endl;
+    Country pais1;
+    Country pais2;
     for (Country c : countryList)
     {
-        if (c.getId() == "US" || c.getId() == "CA")
+        if (c.getCountryName() == "Portugal")
         {
             c.print();
+            pais1 = c;
+        }
+        if (c.getCountryName() == "Liberia")
+        {
+            c.print();
+            pais2 = c;
         }
     }
+    cout << ((pais1.seIntersecan(pais2)) ? "Se intersecan" : "No se intersecan") << endl;
     return 0;
 }
