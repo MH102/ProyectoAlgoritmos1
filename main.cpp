@@ -1,6 +1,7 @@
-#include "Country.cpp"
+#include "Country.hpp"
 #include "pugixml.cpp"
 using namespace std;
+
 vector<Country> countryList;
 
 int main()
@@ -8,6 +9,8 @@ int main()
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file("svg//world.svg");
     pugi::xml_node countries = doc.child("svg");
+
+    // Parsear de XML
     for (pugi::xml_node country = countries.child("path"); country; country = country.next_sibling("path"))
     {
         string style = country.attribute("style").as_string();
@@ -24,7 +27,6 @@ int main()
         vector<pair<double, double>> coords;
         pair<double, double> mainPair(-1, -1);
         bool inPath = false;
-        // n
         for (int i = 0; i < borderCoords.length(); i++)
         {
             if (inPath)
@@ -41,7 +43,6 @@ int main()
                     {
                         double coord1 = stod(coord.substr(0, coord.find(',')));
                         double coord2 = stod(coord.substr(coord.find(',') + 1, -1));
-                        //coords.push_back(make_pair(coord1, coord2));
                         if (mainPair.first == -1)
                         {
                             mainPair = make_pair(coord1, coord2);
@@ -73,22 +74,21 @@ int main()
         paths.push_back(coords);
         Country curCountry = Country(id, countryName, countryCode, paths, color, styleRule);
         countryList.push_back(curCountry);
-        //curCountry.print();
     }
-    cout << countryList.size() << endl;
+    // cout << countryList.size() << endl;
     Country pais1;
     Country pais2;
-    for (Country c : countryList)
+    for (Country countryIndex : countryList)
     {
-        if (c.getCountryName() == "Portugal")
+        if (countryIndex.getCountryName() == "Costa Rica")
         {
-            c.print();
-            pais1 = c;
+            // countryIndex.print();
+            pais1 = countryIndex;
         }
-        if (c.getCountryName() == "Liberia")
+        if (countryIndex.getCountryName() == "Panama")
         {
-            c.print();
-            pais2 = c;
+            // countryIndex.print();
+            pais2 = countryIndex;
         }
     }
     cout << ((pais1.seIntersecan(pais2)) ? "Se intersecan" : "No se intersecan") << endl;
