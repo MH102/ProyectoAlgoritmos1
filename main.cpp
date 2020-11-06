@@ -76,11 +76,11 @@ int main()
         countryList.push_back(curCountry);
     }
     //cout << countryList.size() << endl;
-    ColorComparator comparator(countryList);
+    ColorComparator comparator;
     comparator.insertarColor("Rojo");
     comparator.insertarColor("Verde");
     comparator.insertarColor("Azul");
-    comparator.comparar();
+    comparator.comparar(countryList);
     comparator.imprimir();
 
     return 0;

@@ -3,16 +3,14 @@
 class ColorComparator
 {
 private:
-    vector<Country> paises;
     vector<Color *> colores;
     vector<Country> blanco;
 
 public:
-    ColorComparator(vector<Country> pPaises)
+    ColorComparator()
     {
-        paises = pPaises;
     }
-    void comparar()
+    void comparar(vector<Country> paises)
     {
         if (colores.size() < 3)
         {
