@@ -90,5 +90,10 @@ int main()
         }
     }
     
+    for (int indexCountry = 0; indexCountry < countryList.size(); indexCountry++){
+        initCountry = countryList.at(indexCountry);
+        cout<< initCountry.getPaisesVecinos().size() << endl;
+    }
+
     return 0;
 }
