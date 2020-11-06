@@ -80,9 +80,6 @@ class Country
         
         bool seIntersecan(Country pais)
         {
-            Country initCountry;
-            Country nextCountry;
-
             for (pair<double, double> initCountry : sumarVectores(countryBorder))
             {
                 for (pair<double, double> nextCountry : sumarVectores(pais.getCountryBorder()))

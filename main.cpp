@@ -3,6 +3,22 @@
 using namespace std;
 
 vector<Country> countryList;
+vector<Country> rojo;
+vector<Country> verde;
+vector<Country> azul;
+vector<Country> blanco;
+
+bool verificarColor(Country pais, vector<Country> color)
+{
+    for (Country paisColor : color)
+    {
+        if (pais.seIntersecan(paisColor))
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 int main()
 {
@@ -78,24 +94,54 @@ int main()
     // cout << countryList.size() << endl;
     Country initCountry;
     Country nextCountry;
-    for (int indexCountry = 0; indexCountry < countryList.size(); indexCountry++){
-        initCountry = countryList.at(indexCountry);
-        for (int indexNextCountry = indexCountry+1; indexNextCountry < countryList.size(); indexNextCountry++){
-            nextCountry = countryList.at(indexNextCountry);
+    // for (int indexCountry = 0; indexCountry < countryList.size(); indexCountry++){
+    //     initCountry = countryList.at(indexCountry);
+    //     for (int indexNextCountry = indexCountry+1; indexNextCountry < countryList.size(); indexNextCountry++){
+    //         nextCountry = countryList.at(indexNextCountry);
 
-            if( initCountry.seIntersecan(nextCountry) ){
-                initCountry.addPaisVecino(nextCountry);
-                nextCountry.addPaisVecino(initCountry);
-            }
-        }
-        
-        cout<< initCountry.getPaisesVecinos().size() << endl;
-    }
-    
+    //         if( initCountry.seIntersecan(nextCountry) ){
+    //             initCountry.addPaisVecino(nextCountry);
+    //             nextCountry.addPaisVecino(initCountry);
+    //         }
+    //     }
+
+    //     cout<< initCountry.getPaisesVecinos().size() << endl;
+    // }
+
     // for (int indexCountry = 0; indexCountry < countryList.size(); indexCountry++){
     //     initCountry = countryList.at(indexCountry);
     //     cout<< initCountry.getPaisesVecinos().size() << endl;
     // }
+
+    for (Country paisAfuera : countryList)
+    {
+        if (!verificarColor(paisAfuera, rojo))
+        {
+            rojo.push_back(paisAfuera);
+        }
+        else
+        {
+            if (!verificarColor(paisAfuera, verde))
+            {
+                verde.push_back(paisAfuera);
+            }
+            else
+            {
+                if (!verificarColor(paisAfuera, azul))
+                {
+                    azul.push_back(paisAfuera);
+                }
+                else
+                {
+                    blanco.push_back(paisAfuera);
+                }
+            }
+        }
+    }
+    cout << rojo.size() << endl;
+    cout << verde.size() << endl;
+    cout << azul.size() << endl;
+    cout << blanco.size() << endl;
 
     return 0;
 }
