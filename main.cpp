@@ -76,21 +76,19 @@ int main()
         countryList.push_back(curCountry);
     }
     // cout << countryList.size() << endl;
-    Country pais1;
-    Country pais2;
-    for (Country countryIndex : countryList)
-    {
-        if (countryIndex.getCountryName() == "Costa Rica")
-        {
-            // countryIndex.print();
-            pais1 = countryIndex;
-        }
-        if (countryIndex.getCountryName() == "Panama")
-        {
-            // countryIndex.print();
-            pais2 = countryIndex;
+    Country initCountry;
+    Country nextCountry;
+    for (int indexCountry = 0; indexCountry < countryList.size(); indexCountry++){
+        initCountry = countryList.at(indexCountry);
+        for (int indexNextCountry = indexCountry+1; indexNextCountry < countryList.size(); indexNextCountry++){
+            nextCountry = countryList.at(indexNextCountry);
+
+            if( initCountry.seIntersecan(nextCountry) ){
+                initCountry.addPaisVecino(nextCountry);
+                nextCountry.addPaisVecino(initCountry);
+            }
         }
     }
-    cout << ((pais1.seIntersecan(pais2)) ? "Se intersecan" : "No se intersecan") << endl;
+    
     return 0;
 }

@@ -12,6 +12,7 @@ class Country
         string countryName;
         string countryCode;
         vector<vector<pair<double, double>>> countryBorder;
+        vector<Country> paisesVecinos;
         string color;
         string styleRule;
 
@@ -42,6 +43,10 @@ class Country
         {
             return countryCode;
         }
+
+        vector<Country> getPaisesVecinos(){
+            return paisesVecinos;
+        }
         
         vector<vector<pair<double, double>>> getCountryBorder()
         {
@@ -57,6 +62,10 @@ class Country
         {
             return styleRule;
         }
+
+        void addPaisVecino(Country pais){
+            paisesVecinos.push_back(pais);
+        }
         
         vector<pair<double, double>> sumarVectores(vector<vector<pair<double, double>>> vec1)
         {
@@ -71,13 +80,16 @@ class Country
         
         bool seIntersecan(Country pais)
         {
-            for (pair<double, double> pais1 : sumarVectores(countryBorder))
+            Country initCountry;
+            Country nextCountry;
+
+            for (pair<double, double> initCountry : sumarVectores(countryBorder))
             {
-                for (pair<double, double> pais2 : sumarVectores(pais.getCountryBorder()))
+                for (pair<double, double> nextCountry : sumarVectores(pais.getCountryBorder()))
                 {
-                    if (pais1.first - pais2.first < 1 && pais1.first - pais2.first > -1)
+                    if (initCountry.first - nextCountry.first < 1 && initCountry.first - nextCountry.first > -1)
                     {
-                        if (pais1.second - pais2.second < 1 && pais1.second - pais2.second > -1)
+                        if (initCountry.second - nextCountry.second < 1 && initCountry.second - nextCountry.second > -1)
                         {
                             return true;
                         }
@@ -85,6 +97,12 @@ class Country
                 }
             }
             return false;
+        }
+
+        void printVecinos() {
+            for (int indexCountry = 0; indexCountry < paisesVecinos.size(); indexCountry++){
+                cout<< paisesVecinos.at(indexCountry).getCountryName() << endl;
+            }
         }
         
         void print()//Mejor eliminar antes de llegar al main
