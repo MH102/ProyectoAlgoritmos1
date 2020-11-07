@@ -2,7 +2,7 @@
 
 class ColorComparator
 {
-private:
+protected:
     vector<Color *> colores;
     vector<Country> blanco;
 
