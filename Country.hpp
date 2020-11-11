@@ -15,15 +15,22 @@ private:
     string idCountry;
     string countryName;
     string countryCode;
-    vector<vector<double>> countryBorder;
+    vector<pair<double, double>> countryBorder;
     vector<Country> paisesVecinos;
     string color;
     string styleRule;
 
 public:
+    struct sort_pred
+    {
+        bool operator()(const std::pair<int, int> &left, const std::pair<int, int> &right)
+        {
+            return left.second < right.second;
+        }
+    };
     Country() {} //Mejor eliminar antes de llegar al main
 
-    Country(string pidCountry, string pCountryName, string pCountryCode, vector<vector<double>> pCountryBorder, string pColor, string pStyleRule)
+    Country(string pidCountry, string pCountryName, string pCountryCode, vector<pair<double, double>> pCountryBorder, string pColor, string pStyleRule)
     {
         idCountry = pidCountry;
         countryName = pCountryName;
@@ -53,7 +60,7 @@ public:
         return paisesVecinos;
     }
 
-    vector<vector<double>> getCountryBorder()
+    vector<pair<double, double>> getCountryBorder()
     {
         return countryBorder;
     }
@@ -109,13 +116,64 @@ public:
     }
     bool seIntersecan(Country pais)
     {
-        vector<vector<double>> coordsA = getCountryBorder();
-        vector<vector<double>> coordsB = pais.getCountryBorder();
-        pair<double, double> xExtremesA = make_pair(coordsA.at(0).back(), coordsA.at(0).front());
-        pair<double, double> xExtremesB = make_pair(coordsB.at(0).back(), coordsB.at(0).front());
-        pair<double, double> yExtremesA = make_pair(coordsA.at(1).back(), coordsA.at(1).front());
-        pair<double, double> yExtremesB = make_pair(coordsB.at(1).back(), coordsB.at(1).front());
-        return (dosLineasColisionan(xExtremesA, xExtremesB) && dosLineasColisionan(yExtremesA, yExtremesB));
+        vector<pair<double, double>> coordsA(getCountryBorder());
+        vector<pair<double, double>> coordsB(pais.getCountryBorder());
+        pair<double, double> xExtremesA = make_pair(coordsA.back().first, coordsA.front().first);
+        pair<double, double> xExtremesB = make_pair(coordsB.back().first, coordsB.front().first);
+        sort(coordsA.begin(), coordsA.end(), sort_pred());
+        sort(coordsB.begin(), coordsB.end(), sort_pred());
+        pair<double, double> yExtremesA = make_pair(coordsA.back().second, coordsA.front().second);
+        pair<double, double> yExtremesB = make_pair(coordsB.back().second, coordsB.front().second);
+        if (dosLineasColisionan(xExtremesA, xExtremesB) && dosLineasColisionan(yExtremesA, yExtremesB))
+        {
+            sort(coordsA.begin(), coordsA.end());
+            sort(coordsB.begin(), coordsB.end());
+            if (coordsA.front().first <= coordsB.front().first)
+            {
+                for (pair<double, double> xy : coordsB)
+                {
+                    for (pair<double, double> xy2 : coordsA)
+                    {
+                        if (xy.first < xy2.first)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            string first = to_string(xy.second);
+                            string second = to_string(xy2.second);
+                            if (first == second)
+                                return true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (pair<double, double> xy : coordsA)
+                {
+                    for (pair<double, double> xy2 : coordsB)
+                    {
+                        if (xy.first < xy2.first)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            string first = to_string(xy.second);
+                            string second = to_string(xy2.second);
+                            if (first == second)
+                                return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     void printVecinos()
@@ -133,9 +191,9 @@ public:
         cout << "Country Code: " << countryCode << endl;
         cout << "Border: " << endl;
         cout << "[";
-        for (int i = 0; i < countryBorder.at(0).size(); i++)
+        for (int i = 0; i < countryBorder.size(); i++)
         {
-            cout << "(" << countryBorder.at(0).at(i) << "," << countryBorder.at(1).at(i) << ")";
+            cout << "(" << countryBorder.at(i).first << "," << countryBorder.at(i).second << ")";
         }
         cout << "]" << endl;
         cout << "Style (color): " << color << endl;

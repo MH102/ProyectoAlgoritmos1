@@ -10,13 +10,13 @@ int main()
     XMLParser parser;
     countryList = parser.parseToCountries();
     // ! Prueba de intersec
-    // Country pais1;
-    // Country pais2;
+    Country pais1;
+    Country pais2;
     // for (Country c : countryList)
     // {
-    //     if (c.getCountryName() == "Serbia")
+    //     if (c.getCountryName() == "Portugal")
     //         pais1 = c;
-    //     if (c.getCountryName() == "Romania")
+    //     if (c.getCountryName() == "Spain")
     //         pais2 = c;
     // }
     // pais1.print();
