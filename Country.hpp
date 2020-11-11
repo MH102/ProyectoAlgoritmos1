@@ -5,6 +5,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ private:
     string idCountry;
     string countryName;
     string countryCode;
-    vector<vector<pair<double, double>>> countryBorder;
+    vector<vector<double>> countryBorder;
     vector<Country> paisesVecinos;
     string color;
     string styleRule;
@@ -22,7 +23,7 @@ private:
 public:
     Country() {} //Mejor eliminar antes de llegar al main
 
-    Country(string pidCountry, string pCountryName, string pCountryCode, vector<vector<pair<double, double>>> pCountryBorder, string pColor, string pStyleRule)
+    Country(string pidCountry, string pCountryName, string pCountryCode, vector<vector<double>> pCountryBorder, string pColor, string pStyleRule)
     {
         idCountry = pidCountry;
         countryName = pCountryName;
@@ -52,7 +53,7 @@ public:
         return paisesVecinos;
     }
 
-    vector<vector<pair<double, double>>> getCountryBorder()
+    vector<vector<double>> getCountryBorder()
     {
         return countryBorder;
     }
@@ -83,22 +84,38 @@ public:
         return res;
     }
 
-    bool seIntersecan(Country pais)
+    bool puntoEstaDentroDeLinea(double extremoIzq, double extremoDer, double punto)
     {
-        for (pair<double, double> initCountry : sumarVectores(countryBorder))
+        if (extremoIzq >= punto && extremoDer <= punto)
         {
-            for (pair<double, double> nextCountry : sumarVectores(pais.getCountryBorder()))
-            {
-                if (initCountry.first - nextCountry.first < 1 && initCountry.first - nextCountry.first > -1)
-                {
-                    if (initCountry.second - nextCountry.second < 1 && initCountry.second - nextCountry.second > -1)
-                    {
-                        return true;
-                    }
-                }
-            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool dosLineasColisionan(pair<double, double> lineaA, pair<double, double> lineaB)
+    {
+        if (puntoEstaDentroDeLinea(lineaA.first, lineaA.second, lineaB.first) || puntoEstaDentroDeLinea(lineaA.first, lineaA.second, lineaB.second))
+        {
+            return true;
+        }
+        if (puntoEstaDentroDeLinea(lineaB.first, lineaB.second, lineaA.first) || puntoEstaDentroDeLinea(lineaB.first, lineaB.second, lineaA.second))
+        {
+            return true;
         }
         return false;
+    }
+    bool seIntersecan(Country pais)
+    {
+        vector<vector<double>> coordsA = getCountryBorder();
+        vector<vector<double>> coordsB = pais.getCountryBorder();
+        pair<double, double> xExtremesA = make_pair(coordsA.at(0).back(), coordsA.at(0).front());
+        pair<double, double> xExtremesB = make_pair(coordsB.at(0).back(), coordsB.at(0).front());
+        pair<double, double> yExtremesA = make_pair(coordsA.at(1).back(), coordsA.at(1).front());
+        pair<double, double> yExtremesB = make_pair(coordsB.at(1).back(), coordsB.at(1).front());
+        return (dosLineasColisionan(xExtremesA, xExtremesB) && dosLineasColisionan(yExtremesA, yExtremesB));
     }
 
     void printVecinos()
@@ -115,15 +132,12 @@ public:
         cout << "Country Name: " << countryName << endl;
         cout << "Country Code: " << countryCode << endl;
         cout << "Border: " << endl;
-        for (int i = 0; i < countryBorder.size(); i++)
+        cout << "[";
+        for (int i = 0; i < countryBorder.at(0).size(); i++)
         {
-            cout << "[";
-            for (int j = 0; j < countryBorder.at(i).size(); j++)
-            {
-                cout << "(" << countryBorder.at(i).at(j).first << "," << countryBorder.at(i).at(j).second << ")";
-            }
-            cout << "]" << endl;
+            cout << "(" << countryBorder.at(0).at(i) << "," << countryBorder.at(1).at(i) << ")";
         }
+        cout << "]" << endl;
         cout << "Style (color): " << color << endl;
         cout << "Style (frule): " << styleRule << endl;
     }

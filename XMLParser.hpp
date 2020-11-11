@@ -28,16 +28,18 @@ public:
             string color = style.substr(0, style.find(';'));
             string styleRule = style.substr(style.find(';') + 1, -1);
 
-            vector<vector<pair<double, double>>> coordinates = parseCoords(borderCoords);
+            vector<vector<double>> coordinates = parseCoords(borderCoords);
             Country curCountry = Country(id, countryName, countryCode, coordinates, color, styleRule);
             countryList.push_back(curCountry);
         }
 
         return countryList;
     }
-    vector<vector<pair<double, double>>> parseCoords(string borderCoords)
+    vector<vector<double>> parseCoords(string borderCoords)
     {
-        vector<vector<pair<double, double>>> paths;
+        vector<vector<double>> paths;
+        vector<double> xCoord;
+        vector<double> yCoord;
         string coord = "";
         vector<pair<double, double>> coords;
         pair<double, double> mainPair(-1, -1);
@@ -49,7 +51,11 @@ public:
                 if (borderCoords.at(i) == 'z')
                 {
                     inPath = false;
-                    paths.push_back(coords);
+                    for (pair<double, double> iCoord : coords)
+                    {
+                        xCoord.push_back(iCoord.first);
+                        yCoord.push_back(iCoord.second);
+                    }
                     coords.clear();
                 }
                 else
@@ -85,7 +91,15 @@ public:
                 }
             }
         }
-        paths.push_back(coords);
+        for (pair<double, double> iCoord : coords)
+        {
+            xCoord.push_back(iCoord.first);
+            yCoord.push_back(iCoord.second);
+        }
+        sort(xCoord.begin(), xCoord.end());
+        sort(yCoord.begin(), yCoord.end());
+        paths.push_back(xCoord);
+        paths.push_back(yCoord);
         return paths;
     }
 };

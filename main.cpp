@@ -9,11 +9,21 @@ int main()
     // Parsear de XML
     XMLParser parser;
     countryList = parser.parseToCountries();
-    //cout << countryList.size() << endl;
+    // ! Prueba de intersec
+    // Country pais1;
+    // Country pais2;
     // for (Country c : countryList)
     // {
-    //     c.print();
+    //     if (c.getCountryName() == "Serbia")
+    //         pais1 = c;
+    //     if (c.getCountryName() == "Romania")
+    //         pais2 = c;
     // }
+    // pais1.print();
+    // pais2.print();
+    // cout << ((pais1.seIntersecan(pais2)) ? "Son vecinos" : "NO son vecinos") << endl;
+
+    // ! Prueba comparador colores
     ColorComparator comparator;
     comparator.insertarColor("Rojo");
     comparator.insertarColor("Verde");
