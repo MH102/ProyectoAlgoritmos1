@@ -1,5 +1,5 @@
 #include "pugixml.cpp"
-#include "Country.hpp"
+#include "../Model/Country.hpp"
 
 class XMLParser
 {

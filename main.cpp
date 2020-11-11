@@ -1,5 +1,5 @@
-#include "XMLParser.hpp"
-#include "ColorComparator.hpp"
+#include "XML/XMLParser.hpp"
+#include "Comparator/ColorComparator.hpp"
 using namespace std;
 
 int main()

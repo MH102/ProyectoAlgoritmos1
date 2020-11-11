@@ -1,7 +1,6 @@
 #ifndef PAINTER
 #define PAINTER
-#include "Country.hpp"
-#include "Color.hpp"
+#include "../Model/Color.hpp"
 #include "XMLParser.hpp"
 
 class Painter{
