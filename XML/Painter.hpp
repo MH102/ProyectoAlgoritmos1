@@ -1,14 +1,20 @@
 #ifndef PAINTER
 #define PAINTER
 #include "../Model/Color.hpp"
+#include "../Comparator/ColorComparator.hpp"
 #include "XMLParser.hpp"
 
 class Painter{
 
-public:
-    Painter();
+private:
+    ColorComparator comparator;
 
-    void pintarPais(Country *pPais, Color *pColor, XMLParser *xml){
+public:
+    Painter(ColorComparator pComparator){
+        this->comparator = pComparator;
+    };
+
+    void pintarPais(){
         //codigo pintar
     }
 

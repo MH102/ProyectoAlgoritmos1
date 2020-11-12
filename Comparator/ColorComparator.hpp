@@ -1,42 +1,47 @@
 #include "../Model/Color.hpp"
+#include <chrono>
 
+using namespace std;
 class ColorComparator
 {
 protected:
     vector<Color *> colores;
-    vector<Country> blanco;
+    vector<Country> paisesBlancos;
+    int cantidadNecesariaPorPintar;
+    chrono::time_point<chrono::steady_clock> inicioTimer, finTimer;
+    chrono::duration<float> lapso;
 
 public:
-    ColorComparator()
-    {
+
+    ColorComparator();
+
+    ColorComparator(vector<Color *> pColores, int pCantidadPorPintar){
+        this->colores = pColores;
+        this->cantidadNecesariaPorPintar = pCantidadPorPintar;
     }
-    void comparar(vector<Country> paises)
-    {
-        if (colores.size() < 3)
-        {
-            cout << "No hay suficientes colores" << endl;
-            return;
-        }
-        for (Country pais : paises)
-        {
-            bool insertado = false;
-            for (Color *color : colores)
-            {
-                if (!color->verificarColor(pais))
-                {
-                    insertado = true;
-                    color->insertarPais(pais);
-                    break;
-                }
-            }
-            if (!insertado)
-                blanco.push_back(pais);
-        }
+
+    vector<Color *> getColores(){
+        return colores;
     }
+
+    vector<Country> getPaisesBlancos(){
+        return paisesBlancos;
+    }
+
+    int getCantidadNecesaria(){
+        return cantidadNecesariaPorPintar;
+    }
+
+    void Colorear(vector<Country> paises)
+    {
+        //Se implementa el pintado;
+    }
+
     void insertarColor(string colorCode)
     {
         colores.push_back(new Color(colorCode));
     }
+
     void imprimir()
     {
         for (Color *color : colores)
@@ -44,6 +49,6 @@ public:
             cout << "Color: " << color->getColorCode() << "\nCantidad de paises: " << color->getCantidadPaises() << endl;
             cout << endl;
         }
-        cout << "Color: Blanco \nCantidad de paises: " << blanco.size() << endl;
+        cout << "Color: Blanco \nCantidad de paises: " << paisesBlancos.size() << endl;
     }
 };

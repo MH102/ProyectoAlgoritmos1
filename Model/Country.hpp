@@ -16,7 +16,6 @@ private:
     string countryName;
     string countryCode;
     vector<pair<double, double>> countryBorder;
-    vector<Country> paisesVecinos;
     string color;
     string styleRule;
 
@@ -55,11 +54,6 @@ public:
         return countryCode;
     }
 
-    vector<Country> getPaisesVecinos()
-    {
-        return paisesVecinos;
-    }
-
     vector<pair<double, double>> getCountryBorder()
     {
         return countryBorder;
@@ -73,11 +67,6 @@ public:
     string getStyleRule()
     {
         return styleRule;
-    }
-
-    void addPaisVecino(Country pais)
-    {
-        paisesVecinos.push_back(pais);
     }
 
     vector<pair<double, double>> sumarVectores(vector<vector<pair<double, double>>> vec1)
@@ -173,14 +162,6 @@ public:
         else
         {
             return false;
-        }
-    }
-
-    void printVecinos()
-    {
-        for (int indexCountry = 0; indexCountry < paisesVecinos.size(); indexCountry++)
-        {
-            cout << paisesVecinos.at(indexCountry).getCountryName() << endl;
         }
     }
 
