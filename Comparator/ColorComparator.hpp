@@ -12,23 +12,26 @@ protected:
     chrono::duration<float> lapso;
 
 public:
+    ColorComparator() {}
 
-    ColorComparator();
-
-    ColorComparator(vector<Color *> pColores, int pCantidadPorPintar){
+    ColorComparator(vector<Color *> pColores, int pCantidadPorPintar)
+    {
         this->colores = pColores;
         this->cantidadNecesariaPorPintar = pCantidadPorPintar;
     }
 
-    vector<Color *> getColores(){
+    vector<Color *> getColores()
+    {
         return colores;
     }
 
-    vector<Country> getPaisesBlancos(){
+    vector<Country> getPaisesBlancos()
+    {
         return paisesBlancos;
     }
 
-    int getCantidadNecesaria(){
+    int getCantidadNecesaria()
+    {
         return cantidadNecesariaPorPintar;
     }
 
