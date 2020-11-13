@@ -1,6 +1,6 @@
 #ifndef DINAMICO
 #define DINAMICO
-#include "ColorComparator.hpp"
+#include "Comparator\ColorComparator.hpp"
 
 class ComparatorDinamico : ColorComparator{
 
