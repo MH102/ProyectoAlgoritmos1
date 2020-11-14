@@ -1,3 +1,6 @@
+#ifndef COLOR
+#define COLOR
+
 #include "Country.hpp"
 
 using namespace std;
@@ -42,3 +45,5 @@ public:
         return paises;
     }
 };
+
+#endif

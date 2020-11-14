@@ -1,3 +1,6 @@
+#ifndef COMPARATOR
+#define COMPARATOR
+
 #include "../Model/Color.hpp"
 #include <chrono>
 
@@ -35,7 +38,7 @@ public:
         return cantidadNecesariaPorPintar;
     }
 
-    void Colorear(vector<Country> paises)
+    void comparar(vector<Country> paises)
     {
         //Se implementa el pintado;
     }
@@ -55,3 +58,5 @@ public:
         cout << "Color: Blanco \nCantidad de paises: " << paisesBlancos.size() << endl;
     }
 };
+
+#endif

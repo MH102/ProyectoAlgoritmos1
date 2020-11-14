@@ -1,6 +1,8 @@
 #include "pugixml.cpp"
 #include "../Model/Country.hpp"
 
+#define PUNTO_DIVISION 1000
+
 class XMLParser
 {
 private:
@@ -30,11 +32,17 @@ public:
 
             vector<pair<double, double>> coordinates = parseCoords(borderCoords);
             Country curCountry = Country(id, countryName, countryCode, coordinates, color, styleRule);
-            countryList.push_back(curCountry);
+            vector<Country>::iterator index = countryList.begin();
+            if(curCountry.getCountryBorder().front().first >= PUNTO_DIVISION){
+                countryList.push_back(curCountry);
+            } else {
+                countryList.insert(index, curCountry);
+            }
         }
 
         return countryList;
     }
+
     vector<pair<double, double>> parseCoords(string borderCoords)
     {
         string coord = "";

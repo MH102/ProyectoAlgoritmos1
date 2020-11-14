@@ -1,5 +1,6 @@
 #include "XML/XMLParser.hpp"
 #include "Comparator/ComparatorDinamico.hpp"
+#include "Comparator/ComparatorDivide.hpp"
 using namespace std;
 
 int main()
@@ -24,11 +25,11 @@ int main()
     // cout << ((pais1.seIntersecan(pais2)) ? "Son vecinos" : "NO son vecinos") << endl;
 
     // ! Prueba comparador colores
-    ComparatorDinamico comparator;
+    ComparatorDivide comparator;
     comparator.insertarColor("Rojo");
     comparator.insertarColor("Verde");
     comparator.insertarColor("Azul");
-    comparator.comparar(countryList);
+    comparator.comparar(countryList, 0, 0);
     comparator.imprimir();
     return 0;
 }
