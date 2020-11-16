@@ -16,6 +16,11 @@ public:
         result = doc.load_file("svg//world.svg");
         countries = doc.child("svg");
     }
+    void reload()
+    {
+        result = doc.load_file("svg//world.svg");
+        countries = doc.child("svg");
+    }
     vector<Country> parseToCountries()
     {
         vector<Country> countryList;
@@ -33,9 +38,12 @@ public:
             vector<pair<double, double>> coordinates = parseCoords(borderCoords);
             Country curCountry = Country(id, countryName, countryCode, coordinates, color, styleRule);
             vector<Country>::iterator index = countryList.begin();
-            if(curCountry.getCountryBorder().front().first >= PUNTO_DIVISION){
+            if (curCountry.getCountryBorder().front().first >= PUNTO_DIVISION)
+            {
                 countryList.push_back(curCountry);
-            } else {
+            }
+            else
+            {
                 countryList.insert(index, curCountry);
             }
         }
@@ -92,5 +100,23 @@ public:
         }
         sort(coords.begin(), coords.end());
         return coords;
+    }
+    void escribirASVG(string rutaArchivo)
+    {
+        doc.save_file(rutaArchivo.c_str());
+    }
+    void cambiarColorPais(string pCountryName, string colorCode)
+    {
+        for (pugi::xml_node country = countries.child("path"); country; country = country.next_sibling("path"))
+        {
+            string style = country.attribute("style").as_string();
+            string countryName = country.attribute("data-name").as_string();
+            string newColor = "fill:" + colorCode + ";" + style.substr(style.find(';') + 1, -1);
+            if (countryName == pCountryName)
+            {
+                pugi::xml_attribute attr = country.attribute("style");
+                attr.set_value(newColor.c_str());
+            }
+        }
     }
 };
