@@ -35,7 +35,7 @@ public:
         if( cantidadPorPintar > paises.size()){
             indexFinal = paises.size();
         }else{
-            indexFinal = cantidadPorPintar;
+            indexFinal = cantidadPorPintar-1;
         }
         Color *colorEscogido = colores.at(pIndexColor);
         Country paisPorPintar;

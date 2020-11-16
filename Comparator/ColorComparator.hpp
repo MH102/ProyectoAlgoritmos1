@@ -1,7 +1,8 @@
 #ifndef COMPARATOR
 #define COMPARATOR
 
-#include "../Model/Color.hpp"
+
+#include "../XML/Painter.hpp"
 #include <chrono>
 
 using namespace std;
@@ -11,6 +12,8 @@ protected:
     vector<Color *> colores;
     vector<Country> paisesBlancos;
     int cantidadNecesariaPorPintar;
+    Painter pintador;
+
     chrono::time_point<chrono::steady_clock> inicioTimer, finTimer;
     chrono::duration<float> lapso;
 
@@ -21,6 +24,10 @@ public:
     {
         this->colores = pColores;
         this->cantidadNecesariaPorPintar = pCantidadPorPintar;
+    }
+
+    void setPintador(){
+        this->pintador = new Painter(new ColorComparator(this->colores, this->cantidadNecesariaPorPintar));
     }
 
     vector<Color *> getColores()
@@ -36,6 +43,11 @@ public:
     int getCantidadNecesaria()
     {
         return cantidadNecesariaPorPintar;
+    }
+
+    void setCantidadNecesaria(int pCantidadNecesaria)
+    {
+        this->cantidadNecesariaPorPintar = pCantidadNecesaria;
     }
 
     void comparar(vector<Country> paises)
