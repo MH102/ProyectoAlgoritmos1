@@ -22,7 +22,7 @@ public:
         {
             if(contadorPintados == cantidadNecesariaPorPintar){
                 contadorPintados = 0;
-                pintador->pintarPais(colores);
+                pintador->pintarPais(colores, "svg//dinamic.svg");
             }
             int nextColor = colorCounter + 1;
             while (colorActual->verificarColor(pais))

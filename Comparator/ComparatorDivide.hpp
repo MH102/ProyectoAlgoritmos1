@@ -59,7 +59,7 @@ public:
 
         if(contadorPintados >= cantidadNecesariaPorPintar){
             contadorPintados -= cantidadNecesariaPorPintar;
-            pintador->pintarPais(colores);
+            pintador->pintarPais(colores, "svg//dinamic.svg");
         }
 
         if(pIndexPais >= pPaises.size())
