@@ -8,7 +8,7 @@ class Painter{
 public:
     Painter(){}
 
-    void pintarPais(vector<Color> pColores, vector<Country> pPaisesBlancos){
+    void pintarPais(vector<Color*> pColores){
         //codigo pintar
     }
 

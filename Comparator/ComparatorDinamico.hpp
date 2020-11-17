@@ -10,7 +10,7 @@ public:
 
     ComparatorDinamico(vector<Color *> pColores, int pCantidadPorPintar) : ColorComparator(pColores, pCantidadPorPintar) {}
 
-    void comparar(vector<Country> paises)
+    void comparar(vector<Country> pPaises)
     {
         //Aqui va la solucion en programacion dinamica
 
@@ -18,8 +18,12 @@ public:
         int colorCounter = 0;
 
         bool esBlanco = false;
-        for (Country pais : paises)
+        for (Country pais : pPaises)
         {
+            if(contadorPintados == cantidadNecesariaPorPintar){
+                contadorPintados = 0;
+                pintador->pintarPais(colores);
+            }
             int nextColor = colorCounter + 1;
             while (colorActual->verificarColor(pais))
             {
@@ -47,21 +51,10 @@ public:
                 paisesBlancos.push_back(pais);
                 esBlanco = false;
             }
+            contadorPintados++;
         }
     }
-    void insertarColor(string colorCode)
-    {
-        colores.push_back(new Color(colorCode));
-    }
-    void imprimir()
-    {
-        for (Color *color : colores)
-        {
-            cout << "Color: " << color->getColorCode() << "\nCantidad de paises: " << color->getCantidadPaises() << endl;
-            cout << endl;
-        }
-        cout << "Color: Blanco \nCantidad de paises: " << paisesBlancos.size() << endl;
-    }
+   
 };
 
 #endif
