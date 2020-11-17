@@ -1,6 +1,7 @@
 #include "XML/XMLParser.hpp"
 #include "Comparator/ComparatorDinamico.hpp"
 #include "Comparator/ComparatorDivide.hpp"
+#include "Comparator/ComparatorBacktracking.hpp"
 using namespace std;
 
 int main()
@@ -27,11 +28,11 @@ int main()
     parser.cambiarColorPais("United States", "#FF0000");
     parser.escribirASVG("svg//test.svg");
     // ! Prueba comparador colores
-    ComparatorDivide comparator;
+    ComparatorBacktracking comparator;
     comparator.insertarColor("Rojo");
     comparator.insertarColor("Verde");
     comparator.insertarColor("Azul");
-    comparator.comparar(countryList, 0, 0);
+    comparator.comparar(countryList);
     comparator.imprimir();
     return 0;
 }

@@ -15,11 +15,11 @@ public:
         this->cantidadColores = pColores.size();
     }
 
-    bool determinarVecinos(vector<Country> paises, Country pais,int pIndexPaisInicio, int pIndexPaisFinal)
+    bool determinarVecinos(vector<Country> pPaises, Country pPais,int pIndexPaisInicio, int pIndexPaisFinal)
     {
         for(int indexPais = pIndexPaisInicio; indexPais < pIndexPaisFinal; indexPais++){
-            Country currentCountry = paises.at(indexPais);
-            bool existeFrontera = pais.seIntersecan(currentCountry);
+            Country currentCountry = pPaises.at(indexPais);
+            bool existeFrontera = pPais.seIntersecan(currentCountry);
             if(existeFrontera){
                 return true;
             }
@@ -27,22 +27,22 @@ public:
         return false;
     }
 
-    void colorearPaises(vector<Country> paises, int pIndexPaisInicio, int pIndexColor){
+    void colorearPaises(vector<Country> pPaises, int pIndexPaisInicio, int pIndexColor){
         int indexFinal;
         cantidadColores = colores.size();
         int cantidadPorPintar = pIndexPaisInicio + cantidadColores;
 
-        if( cantidadPorPintar > paises.size()){
-            indexFinal = paises.size();
+        if( cantidadPorPintar > pPaises.size()){
+            indexFinal = pPaises.size();
         }else{
-            indexFinal = cantidadPorPintar;
+            indexFinal = cantidadPorPintar-1;
         }
         Color *colorEscogido = colores.at(pIndexColor);
         Country paisPorPintar;
         for(int indexPais = pIndexPaisInicio; indexPais < indexFinal; indexPais++){
-            paisPorPintar = paises.at(indexPais);
+            paisPorPintar = pPaises.at(indexPais);
 
-            bool tieneVecino = determinarVecinos(paises, paisPorPintar, pIndexPaisInicio+1, indexFinal);
+            bool tieneVecino = determinarVecinos(pPaises, paisPorPintar, pIndexPaisInicio+1, indexFinal);
 
             if(tieneVecino){
                 paisesBlancos.push_back(paisPorPintar);
@@ -54,10 +54,15 @@ public:
 
     }
 
-    void comparar(vector<Country> paises, int pIndexPais, int pIndexColor)
+    void comparar(vector<Country> pPaises, int pIndexPais, int pIndexColor)
     {
-        //Aqui va la solucion en Divide y venceras
-        if(pIndexPais >= paises.size())
+
+        if(contadorPintados >= cantidadNecesariaPorPintar){
+            contadorPintados -= cantidadNecesariaPorPintar;
+            pintador->pintarPais(colores);
+        }
+
+        if(pIndexPais >= pPaises.size())
         {
             return;
         }
@@ -65,22 +70,9 @@ public:
         {
             pIndexColor = 0;
         }
-        colorearPaises(paises, pIndexPais, pIndexColor);
-        comparar(paises, pIndexPais+cantidadColores, pIndexColor+1);
-    }
-
-    void insertarColor(string colorCode)
-    {
-        colores.push_back(new Color(colorCode));
-    }
-    void imprimir()
-    {
-        for (Color *color : colores)
-        {
-            cout << "Color: " << color->getColorCode() << "\nCantidad de paises: " << color->getCantidadPaises() << endl;
-            cout << endl;
-        }
-        cout << "Color: Blanco \nCantidad de paises: " << paisesBlancos.size() << endl;
+        colorearPaises(pPaises, pIndexPais, pIndexColor);
+        contadorPintados += cantidadColores;
+        comparar(pPaises, pIndexPais+cantidadColores, pIndexColor+1);
     }
 
 };
