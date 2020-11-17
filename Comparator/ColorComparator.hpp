@@ -12,7 +12,7 @@ protected:
     vector<Color *> colores;
     vector<Country> paisesBlancos;
     int cantidadNecesariaPorPintar;
-    Painter pintador;
+    Painter *pintador;
 
     chrono::time_point<chrono::steady_clock> inicioTimer, finTimer;
     chrono::duration<float> lapso;
@@ -27,7 +27,7 @@ public:
     }
 
     void setPintador(){
-        this->pintador = new Painter(new ColorComparator(this->colores, this->cantidadNecesariaPorPintar));
+        this->pintador = new Painter();
     }
 
     vector<Color *> getColores()

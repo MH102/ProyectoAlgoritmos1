@@ -1,3 +1,5 @@
+#ifndef XMLPARSER
+#define XMLPARSER
 #include "pugixml.cpp"
 #include "../Model/Country.hpp"
 
@@ -120,3 +122,4 @@ public:
         }
     }
 };
+#endif
