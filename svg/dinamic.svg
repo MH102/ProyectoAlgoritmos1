@@ -44,6 +44,10 @@
        type="text/css"
        id="style6">path { fill-rule: evenodd; }</style>
   </defs>
+  <text id="paisesPintados" x="1200" y="780" fill="black">Total paises pintados:</text>
+  <text id="paisesPintadosVal" x="1350" y="780" fill="black">0</text>
+  <text id="paisesBlancos" x="1200" y="800" fill="black">Total paises en blanco:</text>
+  <text id="paisesBlancosVal" x="1350" y="800" fill="black">211</text>
   <path
      inkscape:connector-curvature="0"
      id="AF"
