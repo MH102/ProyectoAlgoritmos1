@@ -24,6 +24,8 @@ int main()
     // pais2.print();
     // cout << ((pais1.seIntersecan(pais2)) ? "Son vecinos" : "NO son vecinos") << endl;
 
+    parser.cambiarColorPais("United States", "#FF0000");
+    parser.escribirASVG("svg//test.svg");
     // ! Prueba comparador colores
     ComparatorDivide comparator;
     comparator.insertarColor("Rojo");
