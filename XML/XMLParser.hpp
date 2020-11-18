@@ -121,5 +121,13 @@ public:
             }
         }
     }
+    void cambiarCantidadPaisesPintados(int cantidad)
+    {
+        countries.find_child_by_attribute("id", "paisesPintadosVal").text().data().set_value(to_string(cantidad).c_str());
+    }
+    void cambiarCantidadPaisesEnBlanco(int cantidad)
+    {
+        countries.find_child_by_attribute("id", "paisesBlancosVal").text().data().set_value(to_string(cantidad).c_str());
+    }
 };
 #endif

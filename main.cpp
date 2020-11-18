@@ -25,9 +25,12 @@ int main()
     // pais2.print();
     // cout << ((pais1.seIntersecan(pais2)) ? "Son vecinos" : "NO son vecinos") << endl;
 
-    parser.cambiarColorPais("United States", "#FF0000");
+    // parser.cambiarCantidadPaisesPintados(100);
+    // parser.cambiarCantidadPaisesEnBlanco(111);
     parser.escribirASVG("svg//test.svg");
+
     // ! Prueba comparador colores
+<<<<<<< HEAD
     ComparatorBacktracking comparator;
     comparator.insertarColor("Rojo");
     comparator.insertarColor("Verde");
@@ -35,5 +38,13 @@ int main()
     comparator.insertarColor("Negro");
     comparator.comparar(countryList);
     comparator.imprimir();
+=======
+    // ComparatorBacktracking comparator;
+    // comparator.insertarColor("Rojo");
+    // comparator.insertarColor("Verde");
+    // comparator.insertarColor("Azul");
+    // comparator.comparar(countryList);
+    // comparator.imprimir();
+>>>>>>> origin/dev
     return 0;
 }
