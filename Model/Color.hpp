@@ -47,7 +47,7 @@ public:
 
     void setPaises(vector<Country> pPaises)
     {
-
+        this->paises = pPaises;
     }
 
     void limpiarPaises(){
