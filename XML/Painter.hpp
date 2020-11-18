@@ -6,14 +6,20 @@
 class Painter{
 
 private:
-    XMLParser *vista;
+    XMLParser vista;
 
 public:
     Painter(){}
 
     void pintarPais(vector<Color*> pColores, string pRuta){
         //codigo pintar
-        vista->escribirASVG(pRuta);
+        for(Color * color : pColores){
+            for(Country pais: color->getPaises()){
+                vista.cambiarColorPais(pais.getCountryName(), color->getColorCode());
+            }
+        }
+        vista.escribirASVG(pRuta);
+
     }
 
 

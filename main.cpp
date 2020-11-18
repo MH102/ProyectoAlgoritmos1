@@ -32,6 +32,7 @@ int main()
     comparator.insertarColor("Rojo");
     comparator.insertarColor("Verde");
     comparator.insertarColor("Azul");
+    comparator.insertarColor("Negro");
     comparator.comparar(countryList);
     comparator.imprimir();
     return 0;
