@@ -22,6 +22,7 @@ public:
 
     ComparatorBacktracking(vector<Color *> pColores, int pCantidadPorPintar) : ColorComparator(pColores, pCantidadPorPintar)
     {
+        //test thi
         this->cantidadBlancosMejorSolucion = -1;
         this->criterioMejorSolucion = -1;
     }

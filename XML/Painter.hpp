@@ -17,7 +17,7 @@ public:
 
     void pintarPais(vector<Color *> pColores, string pRuta)
     {
-        //codigo pintar
+        //codigo pintar listo
         int cantidadPintados = 0;
         for (Color *color : pColores)
         {

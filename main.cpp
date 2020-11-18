@@ -14,19 +14,6 @@ int main()
     // ! Prueba de intersec
     Country pais1;
     Country pais2;
-    // for (Country c : countryList)
-    // {
-    //     if (c.getCountryName() == "Portugal")
-    //         pais1 = c;
-    //     if (c.getCountryName() == "Spain")
-    //         pais2 = c;
-    // }
-    // pais1.print();
-    // pais2.print();
-    // cout << ((pais1.seIntersecan(pais2)) ? "Son vecinos" : "NO son vecinos") << endl;
-
-    // parser.cambiarCantidadPaisesPintados(100);
-    // parser.cambiarCantidadPaisesEnBlanco(111);
     parser->escribirASVG("svg//test.svg");
 
     // ! Prueba comparador colores

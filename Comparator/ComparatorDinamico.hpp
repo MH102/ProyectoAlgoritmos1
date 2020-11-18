@@ -15,7 +15,6 @@ public:
 
     void comparar(vector<Country> pPaises)
     {
-        //Aqui va la solucion en programacion dinamica
 
         Color *colorActual = colores.front();
         int colorCounter = 0;

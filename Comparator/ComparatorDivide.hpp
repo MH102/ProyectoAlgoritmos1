@@ -11,6 +11,7 @@ private:
 public:
     ComparatorDivide(XMLParser *parser) : ColorComparator()
     {
+        // painter a puntero
         setPintador(parser);
     }
 
