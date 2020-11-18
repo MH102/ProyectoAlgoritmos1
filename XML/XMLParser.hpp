@@ -25,6 +25,7 @@ public:
     }
     vector<Country> parseToCountries()
     {
+
         // aqui esta listo
         vector<Country> countryList;
         for (pugi::xml_node country = countries.child("path"); country; country = country.next_sibling("path"))
@@ -48,7 +49,23 @@ public:
             // {
             //     countryList.insert(index, curCountry);
             // }
-            countryList.push_back(curCountry);
+            if (countryList.size() > 0)
+            {
+                if (countryList.at(countryList.size() - 1).seIntersecan(curCountry))
+                {
+                    Country temp = countryList.front();
+                    countryList.at(0) = curCountry;
+                    countryList.insert(countryList.begin() + countryList.size() / 2, temp);
+                }
+                else
+                {
+                    countryList.push_back(curCountry);
+                }
+            }
+            else
+            {
+                countryList.push_back(curCountry);
+            }
         }
 
         return countryList;

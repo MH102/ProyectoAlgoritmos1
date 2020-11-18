@@ -27,6 +27,7 @@ public:
             return left.second < right.second;
         }
     };
+    
     Country() {} //Mejor eliminar antes de llegar al main
 
     Country(string pidCountry, string pCountryName, string pCountryCode, vector<pair<double, double>> pCountryBorder, string pColor, string pStyleRule)

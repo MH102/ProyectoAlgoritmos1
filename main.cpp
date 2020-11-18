@@ -15,9 +15,12 @@ int main()
     Country pais1;
     Country pais2;
     parser->escribirASVG("svg//test.svg");
-
+    for (Country c : countryList)
+    {
+        cout << c.getCountryName() << endl;
+    }
     // ! Prueba comparador colores
-    ComparatorBacktracking comparator(parser);
+    ComparatorDinamico comparator(parser);
     comparator.insertarColor("#f6ce00");
     comparator.insertarColor("#cc0000");
     comparator.insertarColor("#003399");
