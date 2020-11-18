@@ -30,21 +30,11 @@ int main()
     parser.escribirASVG("svg//test.svg");
 
     // ! Prueba comparador colores
-<<<<<<< HEAD
-    ComparatorBacktracking comparator;
-    comparator.insertarColor("Rojo");
-    comparator.insertarColor("Verde");
-    comparator.insertarColor("Azul");
-    comparator.insertarColor("Negro");
-    comparator.comparar(countryList);
+    ComparatorDivide comparator;
+    comparator.insertarColor("#f6ce00");
+    comparator.insertarColor("#cc0000");
+    comparator.insertarColor("#003399");
+    comparator.comparar(countryList, 0 , 0);
     comparator.imprimir();
-=======
-    // ComparatorBacktracking comparator;
-    // comparator.insertarColor("Rojo");
-    // comparator.insertarColor("Verde");
-    // comparator.insertarColor("Azul");
-    // comparator.comparar(countryList);
-    // comparator.imprimir();
->>>>>>> origin/dev
     return 0;
 }
