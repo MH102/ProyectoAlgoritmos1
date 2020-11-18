@@ -5,75 +5,62 @@
 
 #define AUMENTOCRITERIO 10
 #define MAXANCHO 2000
-class ComparatorBacktracking : public ColorComparator
-{
+class ComparatorBacktracking : public ColorComparator{
 
 private:
+
     int cantidadBlancosMejorSolucion;
     int criterioMejorSolucion;
 
 public:
-    ComparatorBacktracking(XMLParser *parser)
-    {
+    ComparatorBacktracking() {
         this->cantidadBlancosMejorSolucion = -1;
         this->criterioMejorSolucion = -1;
-        setPintador(parser);
     }
 
-    ComparatorBacktracking(vector<Color *> pColores, int pCantidadPorPintar) : ColorComparator(pColores, pCantidadPorPintar)
-    {
+    ComparatorBacktracking(vector<Color *> pColores, int pCantidadPorPintar) : ColorComparator(pColores, pCantidadPorPintar){
         this->cantidadBlancosMejorSolucion = -1;
         this->criterioMejorSolucion = -1;
     }
 
     void comparar(vector<Country> pPaises)
     {
-        for (int posicion = 0; posicion <= MAXANCHO; posicion += AUMENTOCRITERIO)
-        {
+        for(int posicion = 0; posicion <= MAXANCHO; posicion += AUMENTOCRITERIO){
             pPaises = ordenamiento(pPaises, posicion);
-            if (compararMejorSolucion(pPaises))
-            {
+            if( compararMejorSolucion(pPaises) ){
                 this->cantidadBlancosMejorSolucion = paisesBlancos.size();
                 this->criterioMejorSolucion = posicion;
             }
         }
     }
 
-    vector<Country> ordenamiento(vector<Country> pPaises, int pPosicion)
-    {
-        int posicionAltura = pPosicion / 2;
+    vector<Country> ordenamiento(vector<Country> pPaises, int pPosicion){
+        int posicionAltura = pPosicion/2;
         vector<Country> world;
-        for (Country pais : pPaises)
-        {
+        for(Country pais: pPaises){
             float distancia = distanciaEntrePuntos(pais.getCountryBorder().front().first, pais.getCountryBorder().front().second, pPosicion, posicionAltura);
             vector<Country>::iterator index = world.begin();
-            if (distancia >= MAXANCHO / 2)
-            {
+            if(distancia >= MAXANCHO/2){
                 world.push_back(pais);
-            }
-            else
-            {
+            } else {
                 world.insert(index, pais);
             }
         }
         return world;
     }
-
-    float distanciaEntrePuntos(float pFirstValueX, float pFirstValueY, float pSecondValueX, float pSecondValueY)
-    {
-        float firstOperando = pow(pSecondValueX - pFirstValueX, 2);
-        float secondOperando = pow(pSecondValueX - pFirstValueX, 2);
+    
+    float distanciaEntrePuntos(float pFirstValueX, float pFirstValueY, float pSecondValueX, float pSecondValueY){
+        float firstOperando = pow( pSecondValueX - pFirstValueX, 2);
+        float secondOperando = pow( pSecondValueX - pFirstValueX, 2);
         float distancia = sqrt(firstOperando + secondOperando);
         return distancia;
     }
 
-    bool compararMejorSolucion(vector<Country> pPaises)
-    {
+    bool compararMejorSolucion(vector<Country> pPaises){
         limpieza();
         for (Country pais : pPaises)
         {
-            if (paisesBlancos.size() > cantidadBlancosMejorSolucion)
-            {
+            if(paisesBlancos.size() > cantidadBlancosMejorSolucion){
                 return false;
             }
             bool insertado = false;
@@ -92,11 +79,9 @@ public:
         return true;
     }
 
-    void limpieza()
-    {
+    void limpieza(){
         paisesBlancos.clear();
-        for (Color *color : colores)
-        {
+        for(Color* color: colores){
             color->getPaises().clear();
         }
     }
@@ -111,6 +96,7 @@ public:
         cout << "Color: Blanco \nCantidad de paises: " << cantidadBlancosMejorSolucion << endl;
         cout << "Mejor Criterio: " << criterioMejorSolucion << endl;
     }
+
 };
 
 #endif

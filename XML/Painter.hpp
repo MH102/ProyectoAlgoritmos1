@@ -3,34 +3,29 @@
 #include "../Model/Color.hpp"
 #include "XMLParser.hpp"
 
-class Painter
-{
+class Painter{
 
 private:
-    XMLParser *vista;
+    XMLParser vista;
 
 public:
-    Painter(XMLParser *parser)
-    {
-        vista = parser;
-    }
+    Painter(){}
 
-    void pintarPais(vector<Color *> pColores, string pRuta)
-    {
+    void pintarPais(vector<Color*> pColores, string pRuta){
         //codigo pintar
         int cantidadPintados = 0;
-        for (Color *color : pColores)
-        {
+        for(Color * color : pColores){
             cantidadPintados += color->getPaises().size();
-            for (Country pais : color->getPaises())
-            {
-                vista->cambiarColorPais(pais.getCountryName(), color->getColorCode());
+            for(Country pais: color->getPaises()){
+                vista.cambiarColorPais(pais.getCountryName(), color->getColorCode());
             }
         }
-        vista->cambiarCantidadPaisesEnBlanco(211 - cantidadPintados);
-        vista->cambiarCantidadPaisesPintados(cantidadPintados);
-        vista->escribirASVG(pRuta);
+        vista.cambiarCantidadPaisesEnBlanco(211 - cantidadPintados);
+        vista.cambiarCantidadPaisesPintados(cantidadPintados);
+        vista.escribirASVG(pRuta);
     }
+
+
 };
 
 #endif

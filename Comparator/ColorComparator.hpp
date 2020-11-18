@@ -18,8 +18,7 @@ protected:
     chrono::duration<float> lapso;
 
 public:
-    ColorComparator()
-    {
+    ColorComparator() {
         this->contadorPintados = 0;
         this->cantidadNecesariaPorPintar = 10;
     }
@@ -31,9 +30,8 @@ public:
         this->cantidadNecesariaPorPintar = 10;
     }
 
-    void setPintador(XMLParser *parser)
-    {
-        this->pintador = new Painter(parser);
+    void setPintador(){
+        this->pintador = new Painter();
     }
 
     vector<Color *> getColores()
