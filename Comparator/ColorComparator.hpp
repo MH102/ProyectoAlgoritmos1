@@ -20,6 +20,7 @@ protected:
 public:
     ColorComparator()
     {
+        // test
         this->contadorPintados = 0;
         this->cantidadNecesariaPorPintar = 10;
     }

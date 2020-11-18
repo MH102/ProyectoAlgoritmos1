@@ -25,6 +25,7 @@ public:
     }
     vector<Country> parseToCountries()
     {
+        // aqui esta listo
         vector<Country> countryList;
         for (pugi::xml_node country = countries.child("path"); country; country = country.next_sibling("path"))
         {
