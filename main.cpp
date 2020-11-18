@@ -9,8 +9,8 @@ int main()
     vector<Country> countryList;
 
     // Parsear de XML
-    XMLParser parser;
-    countryList = parser.parseToCountries();
+    XMLParser *parser = new XMLParser();
+    countryList = parser->parseToCountries();
     // ! Prueba de intersec
     Country pais1;
     Country pais2;
@@ -27,14 +27,14 @@ int main()
 
     // parser.cambiarCantidadPaisesPintados(100);
     // parser.cambiarCantidadPaisesEnBlanco(111);
-    parser.escribirASVG("svg//test.svg");
+    parser->escribirASVG("svg//test.svg");
 
     // ! Prueba comparador colores
-    ComparatorDivide comparator;
+    ComparatorDivide comparator(parser);
     comparator.insertarColor("#f6ce00");
     comparator.insertarColor("#cc0000");
     comparator.insertarColor("#003399");
-    comparator.comparar(countryList, 0 , 0);
+    comparator.comparar(countryList, 0, 0);
     comparator.imprimir();
     return 0;
 }
