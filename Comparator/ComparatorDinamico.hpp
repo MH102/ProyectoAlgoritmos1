@@ -6,7 +6,10 @@ class ComparatorDinamico : public ColorComparator
 {
 
 public:
-    ComparatorDinamico() : ColorComparator() {}
+    ComparatorDinamico(XMLParser *parser) : ColorComparator()
+    {
+        setPintador(parser);
+    }
 
     ComparatorDinamico(vector<Color *> pColores, int pCantidadPorPintar) : ColorComparator(pColores, pCantidadPorPintar) {}
 
@@ -20,7 +23,8 @@ public:
         bool esBlanco = false;
         for (Country pais : pPaises)
         {
-            if(contadorPintados == cantidadNecesariaPorPintar){
+            if (contadorPintados == cantidadNecesariaPorPintar)
+            {
                 contadorPintados = 0;
                 pintador->pintarPais(colores, "svg//dinamic.svg");
             }
@@ -54,7 +58,6 @@ public:
             contadorPintados++;
         }
     }
-   
 };
 
 #endif
