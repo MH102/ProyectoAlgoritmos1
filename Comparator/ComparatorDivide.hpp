@@ -56,10 +56,11 @@ public:
 
     void comparar(vector<Country> pPaises, int pIndexPais, int pIndexColor)
     {
-
+        cantidadColores = colores.size();
         if(contadorPintados >= cantidadNecesariaPorPintar){
             contadorPintados -= cantidadNecesariaPorPintar;
             pintador->pintarPais(colores, "svg//divideconquer.svg");
+            cout<<"Entro"<<endl;
         }
 
         if(pIndexPais >= pPaises.size())

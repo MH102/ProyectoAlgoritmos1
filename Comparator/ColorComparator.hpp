@@ -20,12 +20,14 @@ protected:
 public:
     ColorComparator() {
         this->contadorPintados = 0;
+        this->cantidadNecesariaPorPintar = 10;
     }
 
     ColorComparator(vector<Color *> pColores, int pCantidadPorPintar)
     {
         this->colores = pColores;
         this->cantidadNecesariaPorPintar = pCantidadPorPintar;
+        this->cantidadNecesariaPorPintar = 10;
     }
 
     void setPintador(){
