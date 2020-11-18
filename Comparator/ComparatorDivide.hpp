@@ -40,13 +40,13 @@ public:
         cantidadColores = colores.size();
         int cantidadPorPintar = pIndexPaisInicio + cantidadColores;
 
-        if (cantidadPorPintar > pPaises.size())
+        if (cantidadPorPintar >= pPaises.size())
         {
             indexFinal = pPaises.size();
         }
         else
         {
-            indexFinal = cantidadPorPintar - 1;
+            indexFinal = cantidadPorPintar;
         }
         Color *colorEscogido = colores.at(pIndexColor);
         Country paisPorPintar;
@@ -63,6 +63,7 @@ public:
             else
             {
                 colorEscogido->insertarPais(paisPorPintar);
+                contadorPintados++;
             }
         }
     }
@@ -78,6 +79,7 @@ public:
 
         if (pIndexPais >= pPaises.size())
         {
+            pintador->pintarPais(colores, "svg//divideconquer.svg");
             return;
         }
         if (pIndexColor == cantidadColores)
@@ -85,7 +87,6 @@ public:
             pIndexColor = 0;
         }
         colorearPaises(pPaises, pIndexPais, pIndexColor);
-        contadorPintados += cantidadColores;
         comparar(pPaises, pIndexPais + cantidadColores, pIndexColor + 1);
     }
 };

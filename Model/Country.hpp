@@ -115,49 +115,7 @@ public:
         pair<double, double> yExtremesB = make_pair(coordsB.back().second, coordsB.front().second);
         if (dosLineasColisionan(xExtremesA, xExtremesB) && dosLineasColisionan(yExtremesA, yExtremesB))
         {
-            sort(coordsA.begin(), coordsA.end());
-            sort(coordsB.begin(), coordsB.end());
-            if (coordsA.front().first <= coordsB.front().first)
-            {
-                for (pair<double, double> xy : coordsB)
-                {
-                    for (pair<double, double> xy2 : coordsA)
-                    {
-                        if (xy.first < xy2.first)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            string first = to_string(xy.second);
-                            string second = to_string(xy2.second);
-                            if (first == second)
-                                return true;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                for (pair<double, double> xy : coordsA)
-                {
-                    for (pair<double, double> xy2 : coordsB)
-                    {
-                        if (xy.first < xy2.first)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            string first = to_string(xy.second);
-                            string second = to_string(xy2.second);
-                            if (first == second)
-                                return true;
-                        }
-                    }
-                }
-            }
-            return false;
+            return true;
         }
         else
         {

@@ -41,14 +41,14 @@ public:
             vector<pair<double, double>> coordinates = parseCoords(borderCoords);
             Country curCountry = Country(id, countryName, countryCode, coordinates, color, styleRule);
             vector<Country>::iterator index = countryList.begin();
-            if (curCountry.getCountryBorder().front().first >= PUNTO_DIVISION)
-            {
-                countryList.push_back(curCountry);
-            }
-            else
-            {
-                countryList.insert(index, curCountry);
-            }
+            // if (curCountry.getCountryBorder().front().first >= PUNTO_DIVISION)
+            // {
+            // }
+            // else
+            // {
+            //     countryList.insert(index, curCountry);
+            // }
+            countryList.push_back(curCountry);
         }
 
         return countryList;
