@@ -5,12 +5,14 @@
 
 #define AUMENTOCRITERIO 10
 #define MAXANCHO 2000
+#define FRAGMENTO MAXANCHO/4
 class ComparatorBacktracking : public ColorComparator
 {
 
 private:
     int cantidadBlancosMejorSolucion;
     int criterioMejorSolucion;
+    vector<vector<Country>> coloresMejorSolucion;
 
 public:
     ComparatorBacktracking(XMLParser *parser)
@@ -36,7 +38,14 @@ public:
             {
                 this->cantidadBlancosMejorSolucion = paisesBlancos.size();
                 this->criterioMejorSolucion = posicion;
+                this->coloresMejorSolucion.clear();
+                for (Color *color : colores)
+                {
+                    coloresMejorSolucion.push_back(color->getPaises());
+                }
+                
             }
+
         }
     }
 
@@ -48,13 +57,23 @@ public:
         {
             float distancia = distanciaEntrePuntos(pais.getCountryBorder().front().first, pais.getCountryBorder().front().second, pPosicion, posicionAltura);
             vector<Country>::iterator index = world.begin();
-            if (distancia >= MAXANCHO / 2)
-            {
-                world.push_back(pais);
-            }
-            else
+            if (distancia <= FRAGMENTO)
             {
                 world.insert(index, pais);
+            }
+            else if(distancia <= FRAGMENTO * 2)
+            {
+                index = world.begin() + world.size()/4;
+                world.insert(index, pais);
+            } 
+            else if(distancia <= FRAGMENTO * 3) 
+            {
+                index = world.begin() + world.size()/2;
+                world.insert(index, pais);
+            } 
+            else 
+            {
+                world.push_back(pais);
             }
         }
         return world;
@@ -89,6 +108,7 @@ public:
             }
             if (!insertado)
                 paisesBlancos.push_back(pais);
+                
         }
         return true;
     }
@@ -98,18 +118,22 @@ public:
         paisesBlancos.clear();
         for (Color *color : colores)
         {
-            color->getPaises().clear();
+            color->limpiarPaises();
         }
     }
 
     void imprimir()
     {
+        int contador = 0;
         for (Color *color : colores)
         {
+            color->setPaises(coloresMejorSolucion.at(contador));
             cout << "Color: " << color->getColorCode() << "\nCantidad de paises: " << color->getCantidadPaises() << endl;
             cout << endl;
+            contador++;
         }
-        cout << "Color: Blanco \nCantidad de paises: " << cantidadBlancosMejorSolucion << endl;
+        // cout << "Color: Blanco \nCantidad de paises: " << paisesBlancos.size() << endl;
+        cout << "Color: Mejor Blanco \nCantidad de paises: " << cantidadBlancosMejorSolucion << endl;
         cout << "Mejor Criterio: " << criterioMejorSolucion << endl;
     }
 };

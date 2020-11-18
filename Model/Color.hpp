@@ -16,11 +16,11 @@ public:
     {
         colorCode = pColorCode;
     }
-    bool verificarColor(Country pais)
+    bool verificarColor(Country pPais)
     {
         for (Country paisColor : paises)
         {
-            if (pais.seIntersecan(paisColor))
+            if (pPais.seIntersecan(paisColor))
             {
                 return true;
             }
@@ -28,9 +28,9 @@ public:
         return false;
     }
 
-    void insertarPais(Country pais)
+    void insertarPais(Country pPais)
     {
-        paises.push_back(pais);
+        paises.push_back(pPais);
     }
     int getCantidadPaises()
     {
@@ -44,6 +44,16 @@ public:
     {
         return paises;
     }
+
+    void setPaises(vector<Country> pPaises)
+    {
+
+    }
+
+    void limpiarPaises(){
+        this->paises.clear();
+    }
+
 };
 
 #endif
