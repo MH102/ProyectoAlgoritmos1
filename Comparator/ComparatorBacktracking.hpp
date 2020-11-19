@@ -47,6 +47,13 @@ public:
             }
 
         }
+        int contador = 0;
+        for (Color *color : colores)
+        {
+            color->setPaises(coloresMejorSolucion.at(contador));
+            contador++;
+        }
+        pintador->pintarPais(colores, "svg//backtracking.svg");
     }
 
     vector<Country> ordenamiento(vector<Country> pPaises, int pPosicion)
@@ -124,15 +131,11 @@ public:
 
     void imprimir()
     {
-        int contador = 0;
         for (Color *color : colores)
         {
-            color->setPaises(coloresMejorSolucion.at(contador));
             cout << "Color: " << color->getColorCode() << "\nCantidad de paises: " << color->getCantidadPaises() << endl;
             cout << endl;
-            contador++;
         }
-        // cout << "Color: Blanco \nCantidad de paises: " << paisesBlancos.size() << endl;
         cout << "Color: Mejor Blanco \nCantidad de paises: " << cantidadBlancosMejorSolucion << endl;
         cout << "Mejor Criterio: " << criterioMejorSolucion << endl;
     }

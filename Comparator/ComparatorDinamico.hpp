@@ -56,6 +56,7 @@ public:
             }
             contadorPintados++;
         }
+        pintador->pintarPais(colores, "svg//dinamic.svg");
     }
 };
 
