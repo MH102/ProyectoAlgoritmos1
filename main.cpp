@@ -20,12 +20,12 @@ int main()
         cout << c.getCountryName() << endl;
     }
     // ! Prueba comparador colores
-    ComparatorDinamico comparator(parser);
+    ComparatorDivide comparator(parser);
     comparator.insertarColor("#f6ce00");
     comparator.insertarColor("#cc0000");
     comparator.insertarColor("#003399");
     comparator.insertarColor("#96a65d");
-    comparator.comparar(countryList);
+    comparator.comparar(countryList, 0 , 0);
     comparator.imprimir();
     return 0;
 }

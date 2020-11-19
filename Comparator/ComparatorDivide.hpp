@@ -54,7 +54,7 @@ public:
         {
             paisPorPintar = pPaises.at(indexPais);
 
-            bool tieneVecino = determinarVecinos(pPaises, paisPorPintar, pIndexPaisInicio + 1, indexFinal);
+            bool tieneVecino = colorEscogido->verificarColor(paisPorPintar);
 
             if (tieneVecino)
             {
