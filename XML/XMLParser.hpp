@@ -147,5 +147,10 @@ public:
     {
         countries.find_child_by_attribute("id", "paisesBlancosVal").text().data().set_value(to_string(cantidad).c_str());
     }
+    void cambiarCantidadPaisesEnBlanco(int segundos)
+    {
+        string mensaje = to_string(segundos) + " segundos";
+        countries.find_child_by_attribute("id", "tiempoVal").text().data().set_value(mensaje.c_str());
+    }
 };
 #endif
