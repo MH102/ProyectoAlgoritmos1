@@ -34,6 +34,7 @@ public:
                 break;
             }
         }
+        return pPaises;
     }
 
     void comparar(vector<Country> pPaises)
