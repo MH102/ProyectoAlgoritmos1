@@ -15,17 +15,17 @@ int main()
     Country pais1;
     Country pais2;
     parser->escribirASVG("svg//test.svg");
-    for (Country c : countryList)
-    {
-        cout << c.getCountryName() << endl;
-    }
+    // for (Country c : countryList)
+    // {
+    //     cout << c.getCountryName() << endl;
+    // }
     // ! Prueba comparador colores
-    ComparatorDivide comparator(parser);
+    ComparatorDinamico comparator(parser);
     comparator.insertarColor("#f6ce00");
     comparator.insertarColor("#cc0000");
     comparator.insertarColor("#003399");
     comparator.insertarColor("#96a65d");
-    comparator.comparar(countryList, 0 , 0);
+    comparator.comparar(countryList);
     comparator.imprimir();
     return 0;
 }

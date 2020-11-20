@@ -5,13 +5,36 @@
 class ComparatorDinamico : public ColorComparator
 {
 
+private:
+    int contadorParaBlanco;
+
 public:
     ComparatorDinamico(XMLParser *parser) : ColorComparator()
     {
         setPintador(parser);
+        contadorParaBlanco = 0;
     }
 
     ComparatorDinamico(vector<Color *> pColores, int pCantidadPorPintar) : ColorComparator(pColores, pCantidadPorPintar) {}
+
+    vector<Country> alimentacion(vector<Country> pPaises, Color *pColor){
+        for(int index= 0; index < pPaises.size(); index++){
+            Country pais = pPaises.at(index);
+            if (contadorPintados == cantidadNecesariaPorPintar){
+                contadorPintados = 0;
+                pintador->pintarPais(colores, "svg//dinamic.svg");
+            }
+            if(!pColor->verificarColor(pais)){
+                pColor->insertarPais(pais);
+                contadorPintados++;
+                pPaises.erase( pPaises.begin()+index);
+            }else{
+                contadorParaBlanco++;
+                return pPaises;
+                break;
+            }
+        }
+    }
 
     void comparar(vector<Country> pPaises)
     {
@@ -19,42 +42,20 @@ public:
         Color *colorActual = colores.front();
         int colorCounter = 0;
 
-        bool esBlanco = false;
-        for (Country pais : pPaises)
-        {
-            if (contadorPintados == cantidadNecesariaPorPintar)
-            {
-                contadorPintados = 0;
-                pintador->pintarPais(colores, "svg//dinamic.svg");
+        while (pPaises.size() > 0){
+            if(colorCounter == colores.size()){
+                colorCounter = 0;
             }
-            int nextColor = colorCounter + 1;
-            while (colorActual->verificarColor(pais))
-            {
-                if (nextColor >= colores.size())
-                {
-                    nextColor = 0;
-                }
-                if (colorCounter == nextColor)
-                {
-                    esBlanco = true;
-                    colorActual = colores.at(nextColor);
-                    nextColor++;
-                    break;
-                }
-                colorActual = colores.at(nextColor);
-                nextColor++;
-            }
-            if (!esBlanco)
-            {
-                colorActual->insertarPais(pais);
-                colorCounter = nextColor - 1;
-            }
-            else
-            {
+            colorActual = colores.at(colorCounter);
+            pPaises = alimentacion(pPaises, colorActual);
+            if(contadorParaBlanco == colores.size()){
+                Country pais = pPaises.at(0);
                 paisesBlancos.push_back(pais);
-                esBlanco = false;
+                pPaises.erase(pPaises.begin());
+                contadorParaBlanco = 0;
+            }else{
+                colorCounter++;
             }
-            contadorPintados++;
         }
         pintador->pintarPais(colores, "svg//dinamic.svg");
     }
