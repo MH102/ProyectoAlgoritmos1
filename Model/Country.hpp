@@ -27,7 +27,7 @@ public:
             return left.second < right.second;
         }
     };
-    
+
     Country() {} //Mejor eliminar antes de llegar al main
 
     Country(string pidCountry, string pCountryName, string pCountryCode, vector<pair<double, double>> pCountryBorder, string pColor, string pStyleRule)
@@ -68,17 +68,6 @@ public:
     string getStyleRule()
     {
         return styleRule;
-    }
-
-    vector<pair<double, double>> sumarVectores(vector<vector<pair<double, double>>> vec1)
-    {
-        vector<pair<double, double>> res;
-        for (vector<pair<double, double>> v : vec1)
-        {
-            for (pair<double, double> p : v)
-                res.push_back(p);
-        }
-        return res;
     }
 
     bool puntoEstaDentroDeLinea(double extremoIzq, double extremoDer, double punto)
@@ -131,9 +120,9 @@ public:
         cout << "Country Code: " << countryCode << endl;
         cout << "Border: " << endl;
         cout << "[";
-        for (int i = 0; i < countryBorder.size(); i++)
+        for (int borderIndex = 0; borderIndex < countryBorder.size(); borderIndex++)
         {
-            cout << "(" << countryBorder.at(i).first << "," << countryBorder.at(i).second << ")";
+            cout << "(" << countryBorder.at(borderIndex).first << "," << countryBorder.at(borderIndex).second << ")";
         }
         cout << "]" << endl;
         cout << "Style (color): " << color << endl;

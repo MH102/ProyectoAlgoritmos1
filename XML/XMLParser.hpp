@@ -77,17 +77,17 @@ public:
         vector<pair<double, double>> coords;
         pair<double, double> mainPair(-1, -1);
         bool inPath = false;
-        for (int i = 0; i < borderCoords.length(); i++)
+        for (int borderIndex = 0; borderIndex < borderCoords.length(); borderIndex++)
         {
             if (inPath)
             {
-                if (borderCoords.at(i) == 'z')
+                if (borderCoords.at(borderIndex) == 'z')
                 {
                     inPath = false;
                 }
                 else
                 {
-                    if (borderCoords.at(i) == ' ')
+                    if (borderCoords.at(borderIndex) == ' ')
                     {
                         double coord1 = stod(coord.substr(0, coord.find(',')));
                         double coord2 = stod(coord.substr(coord.find(',') + 1, -1));
@@ -105,16 +105,16 @@ public:
                     }
                     else
                     {
-                        coord += borderCoords.at(i);
+                        coord += borderCoords.at(borderIndex);
                     }
                 }
             }
             else
             {
-                if (borderCoords.at(i) == 'm')
+                if (borderCoords.at(borderIndex) == 'm')
                 {
                     inPath = true;
-                    i++;
+                    borderIndex++;
                 }
             }
         }
