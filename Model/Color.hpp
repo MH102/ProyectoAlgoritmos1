@@ -7,11 +7,16 @@ using namespace std;
 
 class Color
 {
-private:
+public:
     string colorCode;
     vector<Country> paises;
 
 public:
+    bool operator < (const Color& col) const
+    {
+        return (paises.size() < col.paises.size());
+    }
+    
     Color(string pColorCode)
     {
         colorCode = pColorCode;

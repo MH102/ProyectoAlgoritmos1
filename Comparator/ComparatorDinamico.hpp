@@ -1,14 +1,17 @@
 #ifndef DINAMICO
 #define DINAMICO
 #include "ColorComparator.hpp"
+#include <queue>
 
 class ComparatorDinamico : public ColorComparator
 {
 
 private:
     int contadorParaBlanco;
-
+    priority_queue<Color*> priorityQueue;
+    priority_queue<Color*> priorityQueueAux;
 public:
+
     ComparatorDinamico(XMLParser *parser) : ColorComparator()
     {
         setPintador(parser);
@@ -16,46 +19,46 @@ public:
     }
 
     ComparatorDinamico(vector<Color *> pColores, int pCantidadPorPintar) : ColorComparator(pColores, pCantidadPorPintar) {}
-
-    vector<Country> alimentacion(vector<Country> pPaises, Color *pColor){
-        for(int index= 0; index < pPaises.size(); index++){
-            Country pais = pPaises.at(index);
-            if (contadorPintados == cantidadNecesariaPorPintar){
+    void fillQueue(){        
+        for(Color * color : colores){
+            priorityQueue.push(color);
+        }
+    }
+    void comparar(vector<Country> pPaises)
+    {
+        fillQueue();
+        Color *colorActual = priorityQueue.top();
+        bool esBlanco = false;
+        for (Country pais : pPaises)
+        {
+            if (contadorPintados == cantidadNecesariaPorPintar)
+            {
                 contadorPintados = 0;
                 pintador->pintarPais(colores, "svg//dinamic.svg");
             }
-            if(!pColor->verificarColor(pais)){
-                pColor->insertarPais(pais);
+            while (colorActual->verificarColor(pais))
+            {
+                if(priorityQueue.empty()){
+                    esBlanco = true;
+                    break;
+                }
+                priorityQueueAux.push(priorityQueue.top());
+                priorityQueue.pop();
+                colorActual = priorityQueue.top();
+            }        
+            if (!esBlanco)
+            {
+                colorActual->insertarPais(pais);
                 contadorPintados++;
-                pPaises.erase( pPaises.begin()+index);
-            }else{
-                contadorParaBlanco++;
-                return pPaises;
-                break;
             }
-        }
-        return pPaises;
-    }
-
-    void comparar(vector<Country> pPaises)
-    {
-
-        Color *colorActual = colores.front();
-        int colorCounter = 0;
-
-        while (pPaises.size() > 0){
-            if(colorCounter == colores.size()){
-                colorCounter = 0;
-            }
-            colorActual = colores.at(colorCounter);
-            pPaises = alimentacion(pPaises, colorActual);
-            if(contadorParaBlanco == colores.size()){
-                Country pais = pPaises.at(0);
+            else
+            {
                 paisesBlancos.push_back(pais);
-                pPaises.erase(pPaises.begin());
-                contadorParaBlanco = 0;
-            }else{
-                colorCounter++;
+                esBlanco = false;
+            }
+            while(!priorityQueueAux.empty()){
+                priorityQueue.push(priorityQueueAux.top());
+                priorityQueueAux.pop();
             }
         }
         pintador->pintarPais(colores, "svg//dinamic.svg");

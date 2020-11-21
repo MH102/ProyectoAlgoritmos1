@@ -3,29 +3,89 @@
 #include "Comparator/ComparatorDivide.hpp"
 #include "Comparator/ComparatorBacktracking.hpp"
 using namespace std;
-
+void menu();
+void pintarBackTracking(vector<string> listaColores, XMLParser * parser, vector<Country> countryList);
+void pintarDinamico(vector<string> listaColores, XMLParser * parser, vector<Country> countryList);
+void pintarDivide(vector<string> listaColores, XMLParser * parser, vector<Country> countryList);
+vector<string> codeColores;
+vector<Country> countryList;
+XMLParser *parser = new XMLParser();
 int main()
 {
-    vector<Country> countryList;
+    menu();
+    return 0;
+}
 
-    // Parsear de XML
-    XMLParser *parser = new XMLParser();
+void menu(){
     countryList = parser->parseToCountries();
-    // ! Prueba de intersec
-    Country pais1;
-    Country pais2;
-    parser->escribirASVG("svg//test.svg");
-    // for (Country c : countryList)
-    // {
-    //     cout << c.getCountryName() << endl;
-    // }
-    // ! Prueba comparador colores
-    ComparatorDinamico comparator(parser);
-    comparator.insertarColor("#f6ce00");
-    comparator.insertarColor("#cc0000");
-    comparator.insertarColor("#003399");
-    comparator.insertarColor("#96a65d");
+    cout<<"<---------Bienvenido al sistema de pintado global--------->"<<endl;
+    cout<<"1. Agregar Color\n2. Iniciar\n3. Salir"<<endl;
+    cout<<"=>";
+    int option;
+    string code;
+    cin >> option;
+    cin.get();
+    switch(option){
+        case 1:
+            cout<<"Ingrese el codigo de color a utilizar:"<<endl;
+            cout<<"=>";
+            cin >> code;
+            cin.get();
+            codeColores.push_back(code);
+            return menu();
+        case 2:
+            if(codeColores.size()>=3){
+                if(codeColores.size() <= 11){
+                    cout << "Metodo Backtracking: " << endl;
+                    pintarBackTracking(codeColores, parser, countryList);
+                    cout << "Metodo Dinamico: " << endl;
+                    pintarDinamico(codeColores, parser, countryList);
+                    cout << "Metodo divide y venceras: " << endl;
+                    pintarDivide(codeColores, parser, countryList);
+                }
+                else{
+                    cout << "Hay mas de 11 colores" << endl;
+                }
+            }
+            else{
+                cout << "Hay menos de 3 colores" << endl;
+            }
+            return menu();
+        case 3:
+            return;
+        default: 
+            cout << "Opcion invalida" << endl;
+            return menu();
+    }
+}
+
+void pintarBackTracking(vector<string> listaColores, XMLParser * parser, vector<Country> countryList)
+{
+    ComparatorBacktracking comparator(parser);
+    for(string color : listaColores)
+    {
+        comparator.insertarColor(color);
+    }
     comparator.comparar(countryList);
     comparator.imprimir();
-    return 0;
+}
+void pintarDinamico(vector<string> listaColores, XMLParser * parser, vector<Country> countryList)
+{
+    ComparatorDinamico comparator(parser);
+    for(string color : listaColores)
+    {
+        comparator.insertarColor(color);
+    }
+    comparator.comparar(countryList);
+    comparator.imprimir();
+}
+void pintarDivide(vector<string> listaColores, XMLParser * parser, vector<Country> countryList)
+{
+    ComparatorDivide comparator(parser);
+    for(string color : listaColores)
+    {
+        comparator.insertarColor(color);
+    }
+    comparator.comparar(countryList,0,0);
+    comparator.imprimir();
 }
