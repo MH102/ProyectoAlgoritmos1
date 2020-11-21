@@ -14,7 +14,7 @@ protected:
     int contadorPintados;
     Painter *pintador;
 
-    chrono::time_point<chrono::steady_clock> inicioTimer, finTimer;
+    chrono::time_point<chrono::high_resolution_clock> inicioTimer, finTimer;
     chrono::duration<float> lapso;
 
 public:

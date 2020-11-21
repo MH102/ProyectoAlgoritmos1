@@ -31,6 +31,7 @@ public:
 
     void comparar(vector<Country> pPaises)
     {
+        inicioTimer = chrono::high_resolution_clock::now();
         for (int posicion = 0; posicion <= MAXANCHO; posicion += AUMENTOCRITERIO)
         {
             pPaises = ordenamiento(pPaises, posicion);
@@ -43,9 +44,13 @@ public:
                 {
                     coloresMejorSolucion.push_back(color->getPaises());
                 }
+                coloresMejorSolucion.push_back(paisesBlancos);
                 
             }
-
+            finTimer = chrono::high_resolution_clock::now();
+            lapso = finTimer-inicioTimer;
+            pintador->blanquearMapa(paisesBlancos);
+            pintador->pintarPais(colores, "svg//backtracking.svg", lapso.count());
         }
         int contador = 0;
         for (Color *color : colores)
@@ -53,7 +58,11 @@ public:
             color->setPaises(coloresMejorSolucion.at(contador));
             contador++;
         }
-        pintador->pintarPais(colores, "svg//backtracking.svg");
+        paisesBlancos=coloresMejorSolucion.at(contador);
+        finTimer = chrono::high_resolution_clock::now();
+        lapso = finTimer-inicioTimer;
+        pintador->blanquearMapa(paisesBlancos);
+        pintador->pintarPais(colores, "svg//backtracking.svg", lapso.count());
     }
 
     vector<Country> ordenamiento(vector<Country> pPaises, int pPosicion)

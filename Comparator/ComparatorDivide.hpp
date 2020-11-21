@@ -70,16 +70,22 @@ public:
 
     void comparar(vector<Country> pPaises, int pIndexPais, int pIndexColor)
     {
+        if(pIndexColor == 0)
+            inicioTimer = chrono::high_resolution_clock::now();
         cantidadColores = colores.size();
         if (contadorPintados >= cantidadNecesariaPorPintar)
         {
+            finTimer = chrono::high_resolution_clock::now();
+            lapso = finTimer-inicioTimer;
             contadorPintados -= cantidadNecesariaPorPintar;
-            pintador->pintarPais(colores, "svg//divideconquer.svg");
+            pintador->pintarPais(colores, "svg//divideconquer.svg", lapso.count());
         }
 
         if (pIndexPais >= pPaises.size())
         {
-            pintador->pintarPais(colores, "svg//divideconquer.svg");
+            finTimer = chrono::high_resolution_clock::now();
+            lapso = finTimer-inicioTimer;
+            pintador->pintarPais(colores, "svg//divideconquer.svg", lapso.count());
             return;
         }
         if (pIndexColor == cantidadColores)

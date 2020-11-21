@@ -15,7 +15,13 @@ public:
         vista = parser;
     }
 
-    void pintarPais(vector<Color *> pColores, string pRuta)
+    void blanquearMapa(vector<Country> pPaises){
+        for(Country pais: pPaises){
+            vista->cambiarColorPais(pais.getCountryName(), "#f2f2f2");
+        }
+    }
+
+    void pintarPais(vector<Color *> pColores, string pRuta, float pTime)
     {
         //codigo pintar listo
         int cantidadPintados = 0;
@@ -29,6 +35,7 @@ public:
         }
         vista->cambiarCantidadPaisesEnBlanco(211 - cantidadPintados);
         vista->cambiarCantidadPaisesPintados(cantidadPintados);
+        vista->cambiarTiempo(pTime);
         vista->escribirASVG(pRuta);
     }
 };
