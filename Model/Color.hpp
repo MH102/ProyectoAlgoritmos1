@@ -7,16 +7,16 @@ using namespace std;
 
 class Color
 {
-public:
+private:
     string colorCode;
     vector<Country> paises;
 
 public:
-    bool operator < (const Color& col) const
+    bool operator<(const Color &col) const
     {
         return (paises.size() < col.paises.size());
     }
-    
+
     Color(string pColorCode)
     {
         colorCode = pColorCode;
@@ -55,10 +55,10 @@ public:
         this->paises = pPaises;
     }
 
-    void limpiarPaises(){
+    void limpiarPaises()
+    {
         this->paises.clear();
     }
-
 };
 
 #endif

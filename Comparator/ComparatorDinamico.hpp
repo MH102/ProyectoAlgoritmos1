@@ -8,10 +8,10 @@ class ComparatorDinamico : public ColorComparator
 
 private:
     int contadorParaBlanco;
-    priority_queue<Color*> priorityQueue;
-    priority_queue<Color*> priorityQueueAux;
-public:
+    priority_queue<Color *> priorityQueue;
+    priority_queue<Color *> priorityQueueAux;
 
+public:
     ComparatorDinamico(XMLParser *parser) : ColorComparator()
     {
         setPintador(parser);
@@ -19,14 +19,16 @@ public:
     }
 
     ComparatorDinamico(vector<Color *> pColores, int pCantidadPorPintar) : ColorComparator(pColores, pCantidadPorPintar) {}
-    void fillQueue(){        
-        for(Color * color : colores){
+    void fillQueue()
+    {
+        for (Color *color : colores)
+        {
             priorityQueue.push(color);
         }
     }
     void comparar(vector<Country> pPaises)
     {
-        inicioTimer= chrono::high_resolution_clock::now();
+        inicioTimer = chrono::high_resolution_clock::now();
         fillQueue();
         Color *colorActual = priorityQueue.top();
         bool esBlanco = false;
@@ -35,21 +37,22 @@ public:
             if (contadorPintados == cantidadNecesariaPorPintar)
             {
                 finTimer = chrono::high_resolution_clock::now();
-                lapso = finTimer-inicioTimer;
+                lapso = finTimer - inicioTimer;
                 contadorPintados = 0;
                 pintador->blanquearMapa(paisesBlancos);
                 pintador->pintarPais(colores, "svg//dinamic.svg", lapso.count());
             }
             while (colorActual->verificarColor(pais))
             {
-                if(priorityQueue.empty()){
+                if (priorityQueue.empty())
+                {
                     esBlanco = true;
                     break;
                 }
                 priorityQueueAux.push(priorityQueue.top());
                 priorityQueue.pop();
                 colorActual = priorityQueue.top();
-            }        
+            }
             if (!esBlanco)
             {
                 colorActual->insertarPais(pais);
@@ -60,13 +63,14 @@ public:
                 paisesBlancos.push_back(pais);
                 esBlanco = false;
             }
-            while(!priorityQueueAux.empty()){
+            while (!priorityQueueAux.empty())
+            {
                 priorityQueue.push(priorityQueueAux.top());
                 priorityQueueAux.pop();
             }
         }
         finTimer = chrono::high_resolution_clock::now();
-        lapso = finTimer-inicioTimer;
+        lapso = finTimer - inicioTimer;
         pintador->blanquearMapa(paisesBlancos);
         pintador->pintarPais(colores, "svg//dinamic.svg", lapso.count());
     }

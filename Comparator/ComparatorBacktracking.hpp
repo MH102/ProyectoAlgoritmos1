@@ -3,9 +3,9 @@
 #include "ColorComparator.hpp"
 #include <math.h>
 
-#define AUMENTOCRITERIO 10
-#define MAXANCHO 2000
-#define FRAGMENTO MAXANCHO/4
+#define AUMENTO_CRITERIO 10
+#define MAX_ANCHO 2000
+#define FRAGMENTO MAX_ANCHO / 4
 class ComparatorBacktracking : public ColorComparator
 {
 
@@ -32,7 +32,7 @@ public:
     void comparar(vector<Country> pPaises)
     {
         inicioTimer = chrono::high_resolution_clock::now();
-        for (int posicion = 0; posicion <= MAXANCHO; posicion += AUMENTOCRITERIO)
+        for (int posicion = 0; posicion <= MAX_ANCHO; posicion += AUMENTO_CRITERIO)
         {
             pPaises = ordenamiento(pPaises, posicion);
             if (compararMejorSolucion(pPaises))
@@ -45,10 +45,9 @@ public:
                     coloresMejorSolucion.push_back(color->getPaises());
                 }
                 coloresMejorSolucion.push_back(paisesBlancos);
-                
             }
             finTimer = chrono::high_resolution_clock::now();
-            lapso = finTimer-inicioTimer;
+            lapso = finTimer - inicioTimer;
             pintador->blanquearMapa(paisesBlancos);
             pintador->pintarPais(colores, "svg//backtracking.svg", lapso.count());
         }
@@ -58,9 +57,9 @@ public:
             color->setPaises(coloresMejorSolucion.at(contador));
             contador++;
         }
-        paisesBlancos=coloresMejorSolucion.at(contador);
+        paisesBlancos = coloresMejorSolucion.at(contador);
         finTimer = chrono::high_resolution_clock::now();
-        lapso = finTimer-inicioTimer;
+        lapso = finTimer - inicioTimer;
         pintador->blanquearMapa(paisesBlancos);
         pintador->pintarPais(colores, "svg//backtracking.svg", lapso.count());
     }
@@ -77,17 +76,17 @@ public:
             {
                 world.insert(index, pais);
             }
-            else if(distancia <= FRAGMENTO * 2)
+            else if (distancia <= FRAGMENTO * 2)
             {
-                index = world.begin() + world.size()/4;
+                index = world.begin() + world.size() / 4;
                 world.insert(index, pais);
-            } 
-            else if(distancia <= FRAGMENTO * 3) 
+            }
+            else if (distancia <= FRAGMENTO * 3)
             {
-                index = world.begin() + world.size()/2;
+                index = world.begin() + world.size() / 2;
                 world.insert(index, pais);
-            } 
-            else 
+            }
+            else
             {
                 world.push_back(pais);
             }
@@ -124,7 +123,6 @@ public:
             }
             if (!insertado)
                 paisesBlancos.push_back(pais);
-                
         }
         return true;
     }

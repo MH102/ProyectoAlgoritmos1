@@ -15,8 +15,10 @@ public:
         vista = parser;
     }
 
-    void blanquearMapa(vector<Country> pPaises){
-        for(Country pais: pPaises){
+    void blanquearMapa(vector<Country> pPaises)
+    {
+        for (Country pais : pPaises)
+        {
             vista->cambiarColorPais(pais.getCountryName(), "#f2f2f2");
         }
     }
